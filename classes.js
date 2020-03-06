@@ -67,7 +67,7 @@ class Manager extends Employee {
       !employee instanceof Employee ||
       employee.__proto__.constructor !== {}.__proto__.constructor
     ) {
-      console.log("only employees are allowed here");
+      console.log("only Employees are allowed here");
     }
     this.reports.push(employee);
   }
@@ -99,7 +99,39 @@ class Manager extends Employee {
 */
 
 //Code Here
-
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age, employees, title, bonus) {
+    super(first_name, last_name, email, age, employees);
+    this.setTitle();
+    this.bonus = bonus || 0;
+  }
+  setTitle() {
+    if (this.reports.length === 0) {
+      this.title = "Not a manager";
+    } else if (this.reports.length >= 1 && this.reports.length <= 3) {
+      this.title = "Barely Manager";
+    } else if (this.reports.length > 3 && this.reports.length <= 10) {
+      this.title = "Mostly Manager";
+    } else if (this.reports.length > 10 && this.reports.length <= 50) {
+      this.title = "Manager";
+    } else if (this.reports.length > 50 && this.reports.length <= 100) {
+      this.title = "Manager Plus";
+    } else if (this.reports.length > 100) {
+      this.title = "Bestest Manager";
+    }
+  }
+  hire(employee) {
+    this.reports.push(employee);
+    this.setTitle();
+  }
+  fire(employeeID) {
+    if (this.reports[employeeID]) {
+      this.reports.splice(employeeID, 1);
+    }
+    this.setTitle();
+    this.bonus += 100;
+  }
+}
 ////////// PROBLEM 4 - Black Diamond //////////
 
 /*
