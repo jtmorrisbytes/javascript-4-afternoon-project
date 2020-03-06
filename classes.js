@@ -57,7 +57,26 @@ new Employee("Jordan", "Morris", "jthecyebrtinkerer@gmail.com", 25);
 */
 
 //Code Here
-
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age, employees) {
+    super(first_name, last_name, email, age);
+    this.reports = [];
+  }
+  hire(employee) {
+    if (
+      !employee instanceof Employee ||
+      employee.__proto__.constructor !== {}.__proto__.constructor
+    ) {
+      console.log("only employees are allowed here");
+    }
+    this.reports.push(employee);
+  }
+  fire(employeeId) {
+    if (this.reports[employeeId]) {
+      this.reports.splice(employeeId, 1);
+    }
+  }
+}
 ////////// PROBLEM 3 //////////
 
 /*
